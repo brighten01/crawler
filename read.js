@@ -6,30 +6,32 @@ function request(url,callback){
 }
 
 exports.classList = function (url,callback){
- request(url,function (error,res){
+    debug('读取文章分类列表：%s', url);
+    request(url,function (error,res){
     if(error){
         console.log(error);
     }
 
-     var classList = [];
      var $ = cheerio.load(res.body.toString());
-     $(".classList li a").each(function (){
+     var classList = [];
+     $(".classList li a").each(function (index ,data){
          var $me = $(this);
          var item = {
-           name : $me.text().trim(),
-             url : $me.attr("href")
+             name: data.children[0].data.trim(),
+             url: data.attribs.href
          };
-         var s = item.url.match(/articlelist_\d_(\d+)_\d\.html/);
-         if(Array.isArray(s)){
+         var s = item.url.match(/articlelist_\d+_(\d+)_\d\.html/);
+         if (Array.isArray(s)) {
              item.id = s[1];
              classList.push(item);
          }
-         callback(null,classList);
      });
+     callback(null,classList);
  });
 };
 
 exports.articleList =function (url,callback){
+    debug('读取博文列表：%s', url);
     request(url,function (error,res){
         if(error){
             console.log(error);
@@ -50,17 +52,24 @@ exports.articleList =function (url,callback){
                 item.id = s[1];
                 articleList.push(item);
             }
-            var nextUrl =  $('.SG_pgnext a').attr('href');
-            exports.articleList(nextUrl,function (error,article_list){
-                if(error){
-                    return callback(error);
-                }
-                callback(null ,article_list);
-            });
-
         });
-    });
 
+        var nextUrl =  $('.SG_pgnext a').attr('href');
+        if (nextUrl!==undefined && nextUrl!='') {
+            // 读取下一页
+            exports.articleList(nextUrl, function (err, articleList2) {
+                if (err) {
+                    console.log(err);
+                    return callback(err);
+                }
+                //console.log(articleList.concat(articleList2));
+                callback(null, articleList.concat(articleList2));
+            });
+        } else {
+            // 返回结果
+            callback(null, articleList);
+        }
+    });
 };
 
 exports.articleDetail = function (url, callback) {
@@ -83,7 +92,6 @@ exports.articleDetail = function (url, callback) {
 
         // 获取文章内容
         var content = $('.articalContent').html().trim();
-
         // 返回结果
         callback(null, {tags: tags, content: content});
     });

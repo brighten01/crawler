@@ -26,6 +26,7 @@ function readArticleList(url ,callback) {
             }
             var nextUrl = $(".SG_pnext a").attr("href");
             if (nextUrl) {
+                console.log('fff');
                 readArticleList(nextUrl, function (error, articleItem) {
                     if (error) {
                         return callback(error);
@@ -33,6 +34,7 @@ function readArticleList(url ,callback) {
                     callback(null, articleList.concat(articleItem));
                 });
             } else {
+                console.log('dddd');
                 callback(null, articleList);
             }
         });
