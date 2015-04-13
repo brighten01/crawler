@@ -6,13 +6,19 @@
   "scripts": {
     "test": "node app.js"
   },
-    "dependencies": {
-        "debug":        "0.7.2",
-        "cheerio":      "0.12.3",
-        "request":      "2.27.0",
-        "async":        "0.2.9",
-        "mysql":        "2.x"
-    },
+  "dependencies": {
+    "debug": "0.7.2",
+    "cheerio": "0.12.3",
+    "request": "2.27.0",
+    "async": "0.2.9",
+    "mysql": "2.x",
+    "express": "3.5.0",
+    "markdown": "*"
+  },
+
   "author": "gaohui",
-  "license": "copy right 2015/04/11"
+  "license": "copy right 2015/04/11",
+  "devDependencies": {
+    "ejs": "^2.3.1"
+  }
 }

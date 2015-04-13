@@ -48,7 +48,6 @@ async.series([
     // 重新整理文章列表，把重复的文章去掉
     function (done) {
         debug('整理文章列表，把重复的文章去掉');
-
         var articles = {};
         Object.keys(articleList).forEach(function (classId) {
             articleList[classId].forEach(function (item) {

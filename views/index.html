@@ -1,0 +1,47 @@
+<html>
+<head>
+    <title><%= title%></title>
+    <script language="javascript"  src="/javascripts/jquery.js"></script>
+    <script language="javascript"  src="/javascripts/bootstrap.js"></script>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.css" />
+    <link rel="stylesheet" href="/stylesheets/bootstrap-theme.css" />
+</head>
+<body>
+<div class="nav navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navar header">
+            <a class="navbar-brand">文章列表</a>
+            <a class="navbar-brand" href="/system_message"> 系统消息</a>
+            <a class="navbar-brand" id="modify" style="cursor: pointer">文章类别</a>
+            <a class="navbar-brand" style="cursor:pointer" id="logout">规则设定</a>
+        </div>
+    </div>
+
+</div>
+
+<div class="container" style="float: left;width:700px;margin-left:100px;">
+  <table  class="table table-hovered" style="width:50%">
+       <%article_list.forEach(function (article,index){ %>
+      <tr>
+            <td><a href="/article/<%=article.id%>" target="_blank"><%= article.title%></a></td>
+      </tr>
+      <%});%>
+
+  </table>
+</div>
+<div class="container" style="float: right;width:500px; margin-right:100px;">
+    <table  class="table table-hovered" style="width:50%">
+        <thead>
+          <th>文章类别</th>
+        </thead>
+        <tbody>
+        <%category_list.forEach(function (category,index){ %>
+        <tr>
+            <td><a href="/class/<%= category.class_id%>" target="_blank"><%= category.name%></a></td>
+        </tr>
+        <%});%>
+    </table>
+    </tbody>
+</div>
+</body>
+</html>

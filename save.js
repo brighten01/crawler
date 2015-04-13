@@ -42,8 +42,10 @@ exports.articleList = function (class_id, list, callback) {
                     db.query('UPDATE `article_list` SET `title`=?, `url`=?, `class_id`=?, `created_time`=? WHERE `id`=? AND `class_id`=?',
                         [item.title, item.url, class_id, created_time, item.id, class_id], next);
                 } else {
-                    db.query('INSERT INTO `article_list`(`id`, `title`, `url`, `class_id`, `created_time`) VALUES (?, ?, ?, ?, ?)',
-                        [item.id, item.title, item.url, class_id, created_time], next);
+                    if(class_id!==0){
+                        db.query('INSERT INTO `article_list`(`id`, `title`, `url`, `class_id`, `created_time`) VALUES (?, ?, ?, ?, ?)',
+                            [item.id, item.title, item.url, class_id, created_time], next);
+                    }
                 }
             });
 
