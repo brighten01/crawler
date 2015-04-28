@@ -18,30 +18,12 @@
     </div>
 
 </div>
-
-<div class="container" style="float: left;width:700px;margin-left:100px;">
-  <table  class="table table-hovered" style="width:50%">
-       <%article_list.forEach(function (article,index){ %>
-      <tr>
-            <td><a href="/article/<%=article.id%>" target="_blank"><%= article.title%></a></td>
-      </tr>
-      <%});%>
-
-  </table>
-</div>
-<div class="container" style="float: right;width:500px; margin-right:100px;">
-    <table  class="table table-hovered" style="width:50%">
-        <thead>
-          <th>文章类别</th>
-        </thead>
-        <tbody>
-        <%category_list.forEach(function (category,index){ %>
+<div class="container">
+    <table class="table table-hovered">
+        <%articles.forEach(function (article,index){%>
         <tr>
-            <td><a href="/class/<%= category.id%>" target="_blank"><%= category.name%></a></td>
+            <td><a href="/article/<%= article.id%>" target="_blank" ><%= article.title %></a></td>
         </tr>
-        <%});%>
+        <% });%>
     </table>
-    </tbody>
 </div>
-</body>
-</html>

@@ -8,7 +8,7 @@ module.exports=function (app){
                 console.log("error"+error);
                 res.redirect("/");
             }
-
+           console.log(category_list);
             new_article.show_article_list(function (error,data){
                  res.render("index",{
                     title: "新浪文章首页",
@@ -36,7 +36,15 @@ module.exports=function (app){
      * 查询某个类别的文章
      */
     app.get("/class/:class_id",function (req,res){
-
+        Article.getArticleByClass(req.params.class_id ,function (error,articles){
+            if(error){
+                return console.log("error");
+            }
+            res.render("class",{
+                articles : articles,
+                title: "文章列表"
+            });
+        });
     });
 
 

@@ -39,4 +39,18 @@ Article.show_detail= function (article_id , callback){
     });
 }
 
+/**
+ * 通过类别id获取文章列表
+ * @param class_id
+ * @param callback
+ */
+Article.getArticleByClass = function (class_id,callback){
+
+    db.query("select * from article_list  where class_id ='"+class_id+"'",function(error,docs){
+        if(error){
+            return callback(error);
+        }
+        callback(null ,docs);
+    })
+}
 module.exports = Article;
